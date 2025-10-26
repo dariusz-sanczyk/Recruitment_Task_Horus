@@ -1,0 +1,151 @@
+$completed-color: #e8f5e9;
+$completed-border: #4caf50;
+$light-blue: #3498db;
+$pending-color: #fff3e0;
+$pending-border: #ff9800;
+$planned-color: #e3f2fd;
+$planned-border: #2196f3;
+$transition-speed: 0.3s;
+$white: white;
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.5rem;
+  transition: all $transition-speed ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.container {
+  max-width: 900px;
+}
+
+.description-toggle {
+  font-size: 0.9rem;
+  color: $light-blue;
+  font-weight: 500;
+  transition: all $transition-speed ease;
+
+  &:hover {
+    color: #2980b9;
+    text-decoration: underline !important;
+  }
+
+  i {
+    font-size: 0.8rem;
+    transition: transform $transition-speed ease;
+  }
+}
+
+.form-check-input {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  border: 2px solid #ced4da;
+  transition: all $transition-speed ease;
+
+  &:checked {
+    background-color: $completed-border;
+    border-color: $completed-border;
+  }
+
+  &:hover {
+    border-color: $light-blue;
+  }
+}
+
+h1 {
+  color: #2c3e50;
+
+  i {
+    color: $light-blue;
+  }
+}
+
+.task-card {
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  transition: all $transition-speed ease;
+  background: $white;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  &.task-completed {
+    background-color: $completed-color;
+    border-color: $completed-border;
+
+    .task-name {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+  }
+}
+
+.task-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+
+  i {
+    color: #95a5a6;
+  }
+}
+
+.task-description {
+  background-color: #f8f9fa;
+  border-left: 4px solid $light-blue;
+  border-radius: 8px;
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  animation: slideDown $transition-speed ease;
+
+  i {
+    color: $light-blue;
+  }
+}
+
+.task-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: color $transition-speed ease;
+
+  &:hover {
+    color: $light-blue;
+  }
+}
+
+.task-status {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 500;
+  border-radius: 20px;
+
+  &.status-completed {
+    background-color: $completed-border;
+    color: $white;
+  }
+
+  &.status-pending {
+    background-color: $pending-border;
+    color: $white;
+  }
+
+  &.status-planned {
+    background-color: $planned-border;
+    color: $white;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

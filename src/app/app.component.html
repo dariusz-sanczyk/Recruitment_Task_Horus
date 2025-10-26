@@ -1,24 +1,70 @@
-<div class="container">
-  <div class="d-flex my-4">
-    <h1>Lista zadań</h1>
-    <button class="btn btn-primary mx-3">Dodaj zadanie</button>
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 mb-0 fw-bold text-dark">
+      <i class="bi bi-list-check me-2"></i>Lista zadań
+    </h1>
+    <button class="btn btn-primary">Dodaj zadanie</button>
   </div>
-  <ul class="list-group">
+  <div class="task-list">
     @for (task of tasks; track $index) {
-      <li class="list-group-item d-block">
-        <div class="item" [ngClass]="{ 'completed': task.status === 'Completed' }">
-          <input type="checkbox" class="form-check-input me-2" [checked]="task.status === 'Completed'"
-                 (change)="toggleCompleted(task)">
-
-          <b class="text-primary">{{ task.name }}</b>
-          <button class="btn btn-link" (click)="toggleDescription()">pokaż opis</button>
-          <br>
-          {{ task.date }} - <span class="badge bg-info">{{ task.status }}</span>
-          @if (descVisible) {
-            <p>{{ task?.description }}</p>
-          }
+    <div
+      class="card task-card mb-3 shadow-sm"
+      [ngClass]="{ 'task-completed': task.status === 'Completed' }"
+    >
+      <div class="card-body">
+        <div class="d-flex align-items-start gap-3">
+          <div class="form-check mt-1">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [id]="'task-' + $index"
+              [checked]="task.status === 'Completed'"
+              (change)="toggleCompleted(task)"
+            />
+          </div>
+          <div class="flex-grow-1">
+            <div
+              class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2"
+            >
+              <label
+                [for]="'task-' + $index"
+                class="task-name mb-0 cursor-pointer"
+              >
+                {{ task.name }}
+              </label>
+              <span
+                class="badge task-status"
+                [ngClass]="getStatusClass(task.status)"
+              >
+                {{ getStatusText(task.status) }}
+              </span>
+            </div>
+            <div class="task-date mb-2">
+              <i class="bi bi-calendar3 me-1"></i>
+              <small>{{ task.date }}</small>
+            </div>
+            <button
+              class="btn btn-sm btn-link p-0 text-decoration-none description-toggle"
+              (click)="toggleDescription(task)"
+            >
+              <i
+                class="bi"
+                [ngClass]="
+                  task.descriptionVisible ? 'bi-chevron-up' : 'bi-chevron-down'
+                "
+              ></i>
+              {{ task.descriptionVisible ? "Ukryj opis" : "Pokaż opis" }}
+            </button>
+            @if (task.descriptionVisible) {
+            <div class="task-description mt-2 p-3">
+              <i class="bi bi-info-circle me-2"></i>
+              {{ task.description }}
+            </div>
+            }
+          </div>
         </div>
-      </li>
+      </div>
+    </div>
     }
-  </ul>
+  </div>
 </div>
