@@ -1,18 +1,27 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Task } from './models/task.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [NgClass],
+  imports: [NgClass, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true
 })
 export class AppComponent {
-  title = 'junior-frontend-developer-task';
+  public title = 'junior-frontend-developer-task';
+  public showModal: boolean = false;
+  private formSubmitted: boolean = false;
+  public newTask = {
+    name: '',
+    date: '',
+    description: '',
+    status: 'Planned' as 'Completed' | 'Pending' | 'Planned'
+  };
 
-  protected tasks: Task[] = [
+  public tasks: Task[] = [
     {
       name: 'Zrobić zakupy spożywcze',
       status: 'Completed',
@@ -68,4 +77,81 @@ export class AppComponent {
     };
     return statusTexts[status] || status;
   };
+
+  openModal(): void {
+    this.showModal = true;
+    this.formSubmitted = false;
+  };
+
+  closeModal(): void {
+    this.showModal = false;
+    this.resetForm();
+  };
+
+  resetForm(): void {
+    this.newTask = {
+      name: '',
+      date: '',
+      description: '',
+      status: 'Planned'
+    };
+    this.formSubmitted = false;
+  };
+
+  isFormValid(): boolean {
+    if (!this.newTask.name.trim() || !this.newTask.date) {
+      return false;
+    };
+    const selectedDate = new Date(this.newTask.date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate >= today;
+  };
+
+  getTodayDate(): string {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  saveTask(): void {
+    this.formSubmitted = true;
+
+    if (!this.isFormValid()) {
+      return;
+    };
+
+    this.tasks.push({
+      name: this.newTask.name.trim(),
+      status: this.newTask.status,
+      date: this.newTask.date,
+      description: this.newTask.description.trim(),
+      descriptionVisible: false
+    });
+
+    this.closeModal();
+  };
+
+  hasError(field: 'name' | 'date'): boolean {
+    if (!this.formSubmitted) {
+      return false;
+    };
+
+    if (field === 'name') {
+      return !this.newTask.name.trim();
+    };
+
+    if (field === 'date') {
+      if (!this.newTask.date) {
+        return true;
+      };
+      const selectedDate = new Date(this.newTask.date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return selectedDate < today;
+    };
+
+    return false;
+  };
+
 };
