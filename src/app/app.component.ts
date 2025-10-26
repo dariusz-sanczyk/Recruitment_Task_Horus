@@ -22,6 +22,9 @@ export class AppComponent {
   };
   public showDeleteModal: boolean = false;
   public taskToDelete: number = -1;
+  public filterName: string = '';
+  public filterDate: string = '';
+  public filterStatus: string = 'all';
 
   public tasks: Task[] = [
     {
@@ -173,4 +176,24 @@ export class AppComponent {
     return false;
   };
 
+  getFilteredTasks(): Task[] {
+    return this.tasks.filter(task => {
+      const matchesName = !this.filterName ||
+        task.name.toLowerCase().includes(this.filterName.toLowerCase());
+      const matchesDate = !this.filterDate || task.date === this.filterDate;
+      const matchesStatus = this.filterStatus === 'all' || task.status === this.filterStatus;
+
+      return matchesName && matchesDate && matchesStatus;
+    });
+  };
+
+  clearFilters(): void {
+    this.filterName = '';
+    this.filterDate = '';
+    this.filterStatus = 'all';
+  };
+
+  hasActiveFilters(): boolean {
+    return this.filterName !== '' || this.filterDate !== '' || this.filterStatus !== 'all';
+  };
 };

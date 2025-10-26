@@ -7,8 +7,63 @@
       Dodaj zadanie
     </button>
   </div>
+  <div class="filters-card card mb-4 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-funnel me-2"></i>Filtry</h5>
+        @if (hasActiveFilters()) {
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="clearFilters()"
+        >
+          <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
+        </button>
+        }
+      </div>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="filterName" class="form-label">
+            <i class="bi bi-search me-1"></i>Nazwa zadania
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="filterName"
+            [(ngModel)]="filterName"
+            placeholder="Szukaj zadania..."
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="filterDate" class="form-label">
+            <i class="bi bi-calendar3 me-1"></i>Data
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            id="filterDate"
+            [(ngModel)]="filterDate"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="filterStatus" class="form-label">
+            <i class="bi bi-flag me-1"></i>Status
+          </label>
+          <select
+            class="form-select"
+            id="filterStatus"
+            [(ngModel)]="filterStatus"
+          >
+            <option value="all">Wszystkie</option>
+            <option value="Planned">Zaplanowane</option>
+            <option value="Pending">W trakcie</option>
+            <option value="Completed">Ukończone</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="task-list">
-    @for (task of tasks; track $index) {
+    @for (task of getFilteredTasks(); track $index) {
     <div
       class="card task-card mb-3 shadow-sm"
       [ngClass]="{ 'task-completed': task.status === 'Completed' }"
@@ -82,7 +137,17 @@
     <i class="bi bi-inbox display-1 text-muted"></i>
     <p class="text-muted mt-3">Brak zadań. Dodaj swoje pierwsze zadanie!</p>
   </div>
-  } @if (showModal) {
+  @if (getFilteredTasks().length === 0 && tasks.length > 0) {
+  <div class="text-center py-5">
+    <i class="bi bi-funnel-fill display-1 text-muted"></i>
+    <p class="text-muted mt-3 mb-2">
+      Brak zadań spełniających kryteria filtrowania
+    </p>
+    <button class="btn btn-outline-primary" (click)="clearFilters()">
+      <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
+    </button>
+  </div>
+  } } @if (showModal) {
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-dialog" (click)="$event.stopPropagation()">
       <div class="modal-content">
