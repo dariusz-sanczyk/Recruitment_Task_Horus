@@ -1,0 +1,85 @@
+@if (show) {
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-plus-circle-fill me-2"></i>Dodaj nowe zadanie
+        </h5>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="taskName" class="form-label">
+              Nazwa zadania <span class="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-invalid]="hasError('name')"
+              id="taskName"
+              [(ngModel)]="newTask.name"
+              name="taskName"
+              placeholder="np. Zrobić zakupy"
+              maxlength="100"
+            />
+            @if (hasError('name')) {
+            <div class="invalid-feedback">Nazwa zadania jest wymagana</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="taskDate" class="form-label">
+              Data <span class="text-danger">*</span>
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              [class.is-invalid]="hasError('date')"
+              id="taskDate"
+              [(ngModel)]="newTask.date"
+              name="taskDate"
+              [min]="getTodayDate()"
+            />
+            @if (hasError('date')) {
+            <div class="invalid-feedback">
+              @if (!newTask.date) { Data jest wymagana } @else { Data nie może
+              być z przeszłości }
+            </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="taskDescription" class="form-label">
+              Opis (opcjonalny)
+            </label>
+            <textarea
+              class="form-control"
+              id="taskDescription"
+              [(ngModel)]="newTask.description"
+              name="taskDescription"
+              rows="3"
+              placeholder="Dodaj szczegóły zadania..."
+              maxlength="500"
+            >
+            </textarea>
+            <small class="text-muted">
+              {{ newTask.description.length }}/500 znaków
+            </small>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onClose()">
+          <i class="bi bi-x-circle me-1"></i>Anuluj
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSave()">
+          <i class="bi bi-check-circle me-1"></i>Zapisz zadanie
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}

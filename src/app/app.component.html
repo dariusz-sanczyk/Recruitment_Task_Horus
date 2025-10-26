@@ -7,271 +7,39 @@
       Dodaj zadanie
     </button>
   </div>
-  <div class="filters-card card mb-4 shadow-sm">
-    <div class="card-body">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0 fw-bold"><i class="bi bi-funnel me-2"></i>Filtry</h5>
-        @if (hasActiveFilters()) {
-        <button
-          class="btn btn-sm btn-outline-secondary"
-          (click)="clearFilters()"
-        >
-          <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
-        </button>
-        }
-      </div>
-      <div class="row g-3">
-        <div class="col-md-4">
-          <label for="filterName" class="form-label">
-            <i class="bi bi-search me-1"></i>Nazwa zadania
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="filterName"
-            [(ngModel)]="filterName"
-            placeholder="Szukaj zadania..."
-          />
-        </div>
-        <div class="col-md-4">
-          <label for="filterDate" class="form-label">
-            <i class="bi bi-calendar3 me-1"></i>Data
-          </label>
-          <input
-            type="date"
-            class="form-control"
-            id="filterDate"
-            [(ngModel)]="filterDate"
-          />
-        </div>
-        <div class="col-md-4">
-          <label for="filterStatus" class="form-label">
-            <i class="bi bi-flag me-1"></i>Status
-          </label>
-          <select
-            class="form-select"
-            id="filterStatus"
-            [(ngModel)]="filterStatus"
-          >
-            <option value="all">Wszystkie</option>
-            <option value="Planned">Zaplanowane</option>
-            <option value="Pending">W trakcie</option>
-            <option value="Completed">Ukończone</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="task-list">
-    @for (task of getFilteredTasks(); track $index) {
-    <div
-      class="card task-card mb-3 shadow-sm"
-      [ngClass]="{ 'task-completed': task.status === 'Completed' }"
-    >
-      <div class="card-body">
-        <div class="d-flex align-items-start gap-3">
-          <div class="form-check mt-1">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              [id]="'task-' + $index"
-              [checked]="task.status === 'Completed'"
-              (change)="toggleCompleted(task)"
-            />
-          </div>
-          <div class="flex-grow-1">
-            <div
-              class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2"
-            >
-              <span
-                class="task-name mb-0 cursor-pointer"
-                (click)="togglePending(task)"
-              >
-                {{ task.name }}
-              </span>
-              <div class="d-flex align-items-center gap-2">
-                <span
-                  class="badge task-status"
-                  [ngClass]="getStatusClass(task.status)"
-                >
-                  {{ getStatusText(task.status) }}
-                </span>
-                <button
-                  class="btn btn-sm btn-danger delete-btn"
-                  (click)="deleteTask($index)"
-                  title="Usuń zadanie"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
-            <div class="task-date mb-2">
-              <i class="bi bi-calendar3 me-1"></i>
-              <small>{{ task.date }}</small>
-            </div>
-            <button
-              class="btn btn-sm btn-link p-0 text-decoration-none description-toggle"
-              (click)="toggleDescription(task)"
-            >
-              <i
-                class="bi"
-                [ngClass]="
-                  task.descriptionVisible ? 'bi-chevron-up' : 'bi-chevron-down'
-                "
-              >
-              </i>
-              {{ task.descriptionVisible ? "Ukryj opis" : "Pokaż opis" }}
-            </button>
-            @if (task.descriptionVisible) {
-            <div class="task-description mt-2 p-3">
-              <i class="bi bi-info-circle me-2"></i>
-              {{ task.description }}
-            </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-    }
-  </div>
-  @if (tasks.length === 0) {
-  <div class="text-center py-5">
-    <i class="bi bi-inbox display-1 text-muted"></i>
-    <p class="text-muted mt-3">Brak zadań. Dodaj swoje pierwsze zadanie!</p>
-  </div>
-  } @if (getFilteredTasks().length === 0 && tasks.length > 0) {
-  <div class="text-center py-5">
-    <i class="bi bi-funnel-fill display-1 text-muted"></i>
-    <p class="text-muted mt-3 mb-2">
-      Brak zadań spełniających kryteria filtrowania
-    </p>
-    <button class="btn btn-outline-primary" (click)="clearFilters()">
-      <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
-    </button>
-  </div>
-  } @if (showModal) {
-  <div class="modal-overlay" (click)="closeModal()">
-    <div class="modal-dialog" (click)="$event.stopPropagation()">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <i class="bi bi-plus-circle-fill me-2"></i>Dodaj nowe zadanie
-          </h5>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="taskName" class="form-label">
-                Nazwa zadania <span class="text-danger">*</span>
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                [class.is-invalid]="hasError('name')"
-                id="taskName"
-                [(ngModel)]="newTask.name"
-                name="taskName"
-                placeholder="np. Zrobić zakupy"
-                maxlength="100"
-              />
-              @if (hasError('name')) {
-              <div class="invalid-feedback">Nazwa zadania jest wymagana</div>
-              }
-            </div>
-            <div class="mb-3">
-              <label for="taskDate" class="form-label">
-                Data <span class="text-danger">*</span>
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                [class.is-invalid]="hasError('date')"
-                id="taskDate"
-                [(ngModel)]="newTask.date"
-                name="taskDate"
-                [min]="getTodayDate()"
-              />
-              @if (hasError('date')) {
-              <div class="invalid-feedback">
-                @if (!newTask.date) { Data jest wymagana } @else { Data nie może
-                być z przeszłości }
-              </div>
-              }
-            </div>
-            <div class="mb-3">
-              <label for="taskDescription" class="form-label">
-                Opis (opcjonalny)
-              </label>
-              <textarea
-                class="form-control"
-                id="taskDescription"
-                [(ngModel)]="newTask.description"
-                name="taskDescription"
-                rows="3"
-                placeholder="Dodaj szczegóły zadania..."
-                maxlength="500"
-              >
-              </textarea>
-              <small class="text-muted">
-                {{ newTask.description.length }}/500 znaków
-              </small>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            (click)="closeModal()"
-          >
-            <i class="bi bi-x-circle me-1"></i>Anuluj
-          </button>
-          <button type="button" class="btn btn-primary" (click)="saveTask()">
-            <i class="bi bi-check-circle me-1"></i>Zapisz zadanie
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  } @if (showDeleteModal) {
-  <div class="modal-overlay" (click)="cancelDelete()">
-    <div
-      class="modal-dialog modal-dialog-sm"
-      (click)="$event.stopPropagation()"
-    >
-      <div class="modal-content">
-        <div class="modal-header modal-header-danger">
-          <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-            Potwierdzenie usunięcia
-          </h5>
-          <button type="button" class="btn-close" (click)="cancelDelete()">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
-        <div class="modal-body text-center">
-          <i class="bi bi-trash display-1 text-danger mb-3"></i>
-          <p class="mb-0 fw-semibold">Czy na pewno chcesz usunąć to zadanie?</p>
-          <p class="text-muted small mb-0">Tej operacji nie można cofnąć.</p>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            (click)="cancelDelete()"
-          >
-            <i class="bi bi-x-circle me-1"></i>Anuluj
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger"
-            (click)="confirmDelete()"
-          >
-            <i class="bi bi-trash me-1"></i>Usuń zadanie
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  }
+
+  <app-task-filter
+    [filterName]="filterName"
+    [filterDate]="filterDate"
+    [filterStatus]="filterStatus"
+    [hasActiveFilters]="hasActiveFilters()"
+    (filterNameChange)="onFilterNameChange($event)"
+    (filterDateChange)="onFilterDateChange($event)"
+    (filterStatusChange)="onFilterStatusChange($event)"
+    (clearFilters)="clearFilters()">
+  </app-task-filter>
+
+  <app-task-list
+    [tasks]="getFilteredTasks()"
+    [totalTasks]="tasks.length"
+    (toggleCompleted)="toggleCompleted($event)"
+    (togglePending)="togglePending($event)"
+    (toggleDescription)="toggleDescription($event)"
+    (deleteTask)="deleteTask($event)"
+    (clearFilters)="clearFilters()">
+  </app-task-list>
+
+  <app-add-task-modal
+    [show]="showModal"
+    [newTask]="newTask"
+    [formSubmitted]="formSubmitted"
+    (close)="closeModal()"
+    (save)="saveTask($event)">
+  </app-add-task-modal>
+
+  <app-delete-task-modal
+    [show]="showDeleteModal"
+    (confirm)="confirmDelete()"
+    (cancel)="cancelDelete()">
+  </app-delete-task-modal>
 </div>

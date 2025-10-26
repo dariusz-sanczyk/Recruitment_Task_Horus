@@ -1,0 +1,57 @@
+@import '../../styles/variables';
+
+.filters-card {
+  border-radius: $radius;
+  border: 2px solid lighten-color($info);
+  background: linear-gradient(135deg, $gray-light 0%, $white 100%);
+  transition: all $transition-time ease;
+
+  &:hover {
+    border-color: $info;
+  }
+
+  h5 {
+    color: $black;
+
+    i {
+      color: $accent;
+    }
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: $black;
+    font-size: 0.9rem;
+
+    i {
+      color: $accent;
+    }
+  }
+
+  .form-control,
+  .form-select {
+    border-radius: $radius-sm;
+    border: 2px solid $gray-border;
+    transition: all $transition-time ease;
+    font-size: 0.95rem;
+
+    &:focus {
+      border-color: $accent;
+      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+    }
+
+    &::placeholder {
+      color: $gray;
+      opacity: 0.6;
+    }
+  }
+
+  .btn-outline-secondary {
+    border-radius: $radius-sm;
+    transition: all $transition-time ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}

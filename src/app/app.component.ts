@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { Task } from './models/task.model';
-import { FormsModule } from '@angular/forms';
+import { TaskFilterComponent } from './components/task-filter/task-filter.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { AddTaskModalComponent, NewTask } from './components/add-task-modal/add-task-modal.component';
+import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 
 @Component({
   selector: 'app-root',
-  imports: [NgClass, FormsModule],
+  standalone: true,
+  imports: [
+    TaskFilterComponent,
+    TaskListComponent,
+    AddTaskModalComponent,
+    DeleteTaskModalComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  standalone: true
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   public title = 'junior-frontend-developer-task';
   public showModal: boolean = false;
-  private formSubmitted: boolean = false;
-  public newTask = {
+  public formSubmitted: boolean = false;
+  public newTask: NewTask = {
     name: '',
     date: '',
     description: '',
-    status: 'Planned' as 'Completed' | 'Pending' | 'Planned'
+    status: 'Planned'
   };
   public showDeleteModal: boolean = false;
   public taskToDelete: number = -1;
@@ -52,63 +59,45 @@ export class AppComponent {
 
   toggleCompleted(task: Task): void {
     task.status = task.status === 'Completed' ? 'Planned' : 'Completed';
-  };
+  }
 
   togglePending(task: Task): void {
     if (task.status === 'Completed') {
       return;
     }
     task.status = task.status === 'Pending' ? 'Planned' : 'Pending';
-  };
+  }
 
   toggleDescription(task: Task): void {
     task.descriptionVisible = !task.descriptionVisible;
-  };
-
-  getStatusClass(status: string): string {
-    const statusClasses: { [key: string]: string } = {
-      'Completed': 'status-completed',
-      'Pending': 'status-pending',
-      'Planned': 'status-planned'
-    };
-    return statusClasses[status] || 'status-planned';
-  };
-
-  getStatusText(status: string): string {
-    const statusTexts: { [key: string]: string } = {
-      'Completed': 'Ukończone',
-      'Pending': 'W trakcie',
-      'Planned': 'Zaplanowane'
-    };
-    return statusTexts[status] || status;
-  };
+  }
 
   deleteTask(index: number): void {
     this.taskToDelete = index;
     this.showDeleteModal = true;
-  };
+  }
 
   confirmDelete(): void {
     if (this.taskToDelete > -1) {
       this.tasks.splice(this.taskToDelete, 1);
-    };
+    }
     this.cancelDelete();
-  };
+  }
 
   cancelDelete(): void {
     this.showDeleteModal = false;
     this.taskToDelete = -1;
-  };
+  }
 
   openModal(): void {
     this.showModal = true;
     this.formSubmitted = false;
-  };
+  }
 
   closeModal(): void {
     this.showModal = false;
     this.resetForm();
-  };
+  }
 
   resetForm(): void {
     this.newTask = {
@@ -118,63 +107,36 @@ export class AppComponent {
       status: 'Planned'
     };
     this.formSubmitted = false;
-  };
+  }
 
   isFormValid(): boolean {
     if (!this.newTask.name.trim() || !this.newTask.date) {
       return false;
-    };
+    }
     const selectedDate = new Date(this.newTask.date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     return selectedDate >= today;
-  };
+  }
 
-  getTodayDate(): string {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
-  };
-
-  saveTask(): void {
+  saveTask(task: NewTask): void {
     this.formSubmitted = true;
 
     if (!this.isFormValid()) {
       return;
-    };
+    }
 
     this.tasks.push({
-      name: this.newTask.name.trim(),
-      status: this.newTask.status,
-      date: this.newTask.date,
-      description: this.newTask.description.trim(),
+      name: task.name.trim(),
+      status: task.status,
+      date: task.date,
+      description: task.description.trim(),
       descriptionVisible: false
     });
 
     this.closeModal();
-  };
-
-  hasError(field: 'name' | 'date'): boolean {
-    if (!this.formSubmitted) {
-      return false;
-    };
-
-    if (field === 'name') {
-      return !this.newTask.name.trim();
-    };
-
-    if (field === 'date') {
-      if (!this.newTask.date) {
-        return true;
-      };
-      const selectedDate = new Date(this.newTask.date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return selectedDate < today;
-    };
-
-    return false;
-  };
+  }
 
   getFilteredTasks(): Task[] {
     return this.tasks.filter(task => {
@@ -185,15 +147,27 @@ export class AppComponent {
 
       return matchesName && matchesDate && matchesStatus;
     });
-  };
+  }
 
   clearFilters(): void {
     this.filterName = '';
     this.filterDate = '';
     this.filterStatus = 'all';
-  };
+  }
 
   hasActiveFilters(): boolean {
     return this.filterName !== '' || this.filterDate !== '' || this.filterStatus !== 'all';
-  };
-};
+  }
+
+  onFilterNameChange(value: string): void {
+    this.filterName = value;
+  }
+
+  onFilterDateChange(value: string): void {
+    this.filterDate = value;
+  }
+
+  onFilterStatusChange(value: string): void {
+    this.filterStatus = value;
+  }
+}

@@ -1,0 +1,154 @@
+@import '../../styles/variables';
+@import '../../styles/animations';
+
+.task-card {
+  border-radius: $radius;
+  border: 2px solid $gray-border;
+  transition: all $transition-time ease;
+  background: $white;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow !important;
+  }
+
+  &.task-completed {
+    background-color: lighten-color($success);
+    border-color: $success;
+
+    .task-name {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.form-check-input {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  border: 2px solid $gray;
+  transition: all $transition-time ease;
+
+  &:checked {
+    background-color: $success;
+    border-color: $success;
+  }
+
+  &:hover {
+    border-color: $accent;
+  }
+}
+
+.task-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $black;
+  cursor: pointer;
+  transition: color $transition-time ease;
+  user-select: none;
+
+  &:hover {
+    color: $accent;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.task-card:has(.task-status.status-pending) {
+  .task-name {
+    color: darken-color($warning);
+    font-style: italic;
+  }
+}
+
+.task-date {
+  color: $gray;
+  font-size: 0.9rem;
+
+  i {
+    color: $gray;
+    opacity: 0.7;
+  }
+}
+
+.task-description {
+  background-color: $gray-light;
+  border-left: 4px solid $accent;
+  border-radius: $radius-sm;
+  color: $black;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  animation: slideDown $transition-time ease;
+
+  i {
+    color: $accent;
+  }
+}
+
+.task-status {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 500;
+  border-radius: 20px;
+  color: $white;
+
+  &.status-completed {
+    background-color: $success;
+  }
+
+  &.status-pending {
+    background-color: $warning;
+  }
+
+  &.status-planned {
+    background-color: $info;
+  }
+}
+
+.delete-btn {
+  padding: 0.35rem 0.6rem;
+  border-radius: $radius-sm;
+  transition: all $transition-time ease;
+  background-color: $danger;
+  color: $white;
+  border: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: darken-color($danger);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  i {
+    font-size: 0.9rem;
+  }
+}
+
+.description-toggle {
+  font-size: 0.9rem;
+  color: $accent;
+  font-weight: 500;
+  transition: all $transition-time ease;
+
+  &:hover {
+    color: darken-color($accent);
+    text-decoration: underline !important;
+  }
+
+  i {
+    font-size: 0.8rem;
+    transition: transform $transition-time ease;
+  }
+}

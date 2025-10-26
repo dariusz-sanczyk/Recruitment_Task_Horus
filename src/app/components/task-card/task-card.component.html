@@ -1,0 +1,62 @@
+<div
+  class="card task-card mb-3 shadow-sm"
+  [ngClass]="{ 'task-completed': task.status === 'Completed' }">
+  <div class="card-body">
+    <div class="d-flex align-items-start gap-3">
+      <div class="form-check mt-1">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [id]="'task-' + index"
+          [checked]="task.status === 'Completed'"
+          (change)="onToggleCompleted()"
+        />
+      </div>
+
+      <div class="flex-grow-1">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+          <span
+            class="task-name mb-0 cursor-pointer"
+            (click)="onTogglePending()">
+            {{ task.name }}
+          </span>
+          <div class="d-flex align-items-center gap-2">
+            <span
+              class="badge task-status"
+              [ngClass]="getStatusClass(task.status)">
+              {{ getStatusText(task.status) }}
+            </span>
+            <button
+              class="btn btn-sm btn-danger delete-btn"
+              (click)="onDelete()"
+              title="Usuń zadanie">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="task-date mb-2">
+          <i class="bi bi-calendar3 me-1"></i>
+          <small>{{ task.date }}</small>
+        </div>
+
+        <button
+          class="btn btn-sm btn-link p-0 text-decoration-none description-toggle"
+          (click)="onToggleDescription()">
+          <i
+            class="bi"
+            [ngClass]="task.descriptionVisible ? 'bi-chevron-up' : 'bi-chevron-down'">
+          </i>
+          {{ task.descriptionVisible ? "Ukryj opis" : "Pokaż opis" }}
+        </button>
+
+        @if (task.descriptionVisible) {
+          <div class="task-description mt-2 p-3">
+            <i class="bi bi-info-circle me-2"></i>
+            {{ task.description }}
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+@import 'variables';
+
+@mixin button-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.5rem;
+  transition: all $transition-time ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+}
+
+@mixin card-style {
+  border-radius: $radius;
+  border: 2px solid $gray-border;
+  transition: all $transition-time ease;
+  background: $white;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow !important;
+  }
+}
+
+@mixin modal-header {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  color: $white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

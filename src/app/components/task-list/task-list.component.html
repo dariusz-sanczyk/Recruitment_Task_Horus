@@ -1,0 +1,31 @@
+<div class="task-list">
+  @for (task of tasks; track $index) {
+    <app-task-card
+      [task]="task"
+      [index]="$index"
+      (toggleCompleted)="onToggleCompleted($event)"
+      (togglePending)="onTogglePending($event)"
+      (toggleDescription)="onToggleDescription($event)"
+      (deleteTask)="onDeleteTask($event)">
+    </app-task-card>
+  }
+</div>
+
+@if (totalTasks === 0) {
+  <div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <p class="text-muted mt-3">Brak zadań. Dodaj swoje pierwsze zadanie!</p>
+  </div>
+}
+
+@if (tasks.length === 0 && totalTasks > 0) {
+  <div class="text-center py-5">
+    <i class="bi bi-funnel-fill display-1 text-muted"></i>
+    <p class="text-muted mt-3 mb-2">
+      Brak zadań spełniających kryteria filtrowania
+    </p>
+    <button class="btn btn-outline-primary" (click)="onClearFilters()">
+      <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
+    </button>
+  </div>
+}

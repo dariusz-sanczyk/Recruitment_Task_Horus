@@ -1,0 +1,198 @@
+@import '../../styles/variables';
+@import '../../styles/animations';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $overlay;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  animation: fadeIn $transition-time ease;
+}
+
+.modal-dialog {
+  width: 90%;
+  max-width: 550px;
+  animation: slideUp $transition-time ease;
+}
+
+.modal-content {
+  background: $white;
+  border-radius: 16px;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  color: $white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+
+    i {
+      font-size: 1.1rem;
+    }
+  }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    color: $white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all $transition-time ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.modal-body {
+  padding: 2rem;
+
+  .form-label {
+    font-weight: 600;
+    color: $black;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+
+    .text-danger {
+      font-weight: bold;
+    }
+  }
+
+  .form-control,
+  .form-select {
+    border-radius: $radius-sm;
+    border: 2px solid $gray-border;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    transition: all $transition-time ease;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+      outline: none;
+    }
+
+    &.is-invalid {
+      border-color: $danger;
+
+      &:focus {
+        border-color: $danger;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+      }
+    }
+
+    &::placeholder {
+      color: $gray;
+      opacity: 0.6;
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .invalid-feedback {
+    display: block;
+    color: $danger;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .text-muted {
+    font-size: 0.85rem;
+    color: $gray;
+  }
+}
+
+.modal-footer {
+  padding: 1.25rem 2rem;
+  background-color: $gray-light;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid $gray-border;
+
+  .btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    transition: all $transition-time ease;
+    border: none;
+
+    i {
+      font-size: 0.9rem;
+    }
+
+    &.btn-secondary {
+      background-color: $gray;
+      color: $white;
+
+      &:hover {
+        background-color: darken-color($gray);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+      }
+    }
+
+    &.btn-primary {
+      background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+      color: $white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

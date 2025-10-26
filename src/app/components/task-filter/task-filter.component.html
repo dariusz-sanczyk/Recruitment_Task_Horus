@@ -1,0 +1,61 @@
+<div class="filters-card card mb-4 shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0 fw-bold">
+        <i class="bi bi-funnel me-2"></i>Filtry
+      </h5>
+      @if (hasActiveFilters) {
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="onClearFilters()">
+          <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
+        </button>
+      }
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="filterName" class="form-label">
+          <i class="bi bi-search me-1"></i>Nazwa zadania
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="filterName"
+          [ngModel]="filterName"
+          (ngModelChange)="onFilterNameChange($event)"
+          placeholder="Szukaj zadania..."
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label for="filterDate" class="form-label">
+          <i class="bi bi-calendar3 me-1"></i>Data
+        </label>
+        <input
+          type="date"
+          class="form-control"
+          id="filterDate"
+          [ngModel]="filterDate"
+          (ngModelChange)="onFilterDateChange($event)"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label for="filterStatus" class="form-label">
+          <i class="bi bi-flag me-1"></i>Status
+        </label>
+        <select
+          class="form-select"
+          id="filterStatus"
+          [ngModel]="filterStatus"
+          (ngModelChange)="onFilterStatusChange($event)">
+          <option value="all">Wszystkie</option>
+          <option value="Planned">Zaplanowane</option>
+          <option value="Pending">W trakcie</option>
+          <option value="Completed">Ukończone</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
