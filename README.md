@@ -1,42 +1,103 @@
-# Opis zadania
+# 📝 Lista Zadań - Quick Start
 
-Masz przed sobą działającą, lecz celowo nieestetyczną aplikację do zarządzania listą wydarzeń (todos). Twoim zadaniem jest poprawa wyglądu i funkcjonalności aplikacji przy użyciu Angular, Bootstrap 5 i SCSS.
-## Zakres prac
+Aplikacja do zarządzania zadaniami w Angular 19.
 
-1. Refaktoryzacja UI
-   * popraw wygląd listy zadań,
-   * zadbaj o estetykę, czytelność, spójność stylów oraz responsywność,
-   * usuń niepotrzebne lub błędne style, popraw klasy Bootstrap,
-   * popracuj nad rozwijaniem opisu
-   
-2. Dodaj filtry, które dynamicznie przefiltrują listę wydarzeń. Filtruj według:
-   * nazwy wydarzenia,
-   * daty,
-   * statusu.
-   
-3. Dodaj formularz dodawania nowego zadania (modal)
-   * zadbaj o jego wygląd,
-   * dodaj walidację formularza (nazwa i data wymagane, data nie może być przeszła),
-   * po zapisaniu formularza zadanie powinno pojawić się na liście.
-4. (Opcjonalnie) Jeśli masz czas, to podziel aplikację na mniejsze komponenty
+---
 
+## ⚡ Szybki Start
 
-## Jak uruchomić
+### 1. Instalacja
 
 ```bash
 npm install
 ```
 
+### 2. Uruchomienie
+
 ```bash
-npm run start
+ng serve
 ```
 
-Projekt został stworzony za pomocą narzędzi z następującymi wersjami:
+### 3. Otwórz w przeglądarce
 
-> node v22.14.0
+```
+http://localhost:4200
+```
 
-> Angular CLI 19.2.0
+---
 
-## Dostarczenie rozwiązania
+## 🎯 Główne Funkcje
 
-Spakuj projekt jako .zip lub prześlij link do repozytorium na GitHubie.
+- ➕ Dodawanie zadań
+- ✅ Oznaczanie jako "ukończone" lub "w trakcie"
+- 🗑️ Usuwanie zadań
+- 🔍 Filtrowanie (nazwa, data, status)
+- 📱 Responsywny design
+
+---
+
+## 🔧 Jak Działa?
+
+### 1. Dodawanie Zadania
+
+1. Kliknij "Dodaj zadanie"
+2. Wypełnij formularz (nazwa, data, opis)
+3. Kliknij "Zapisz zadanie"
+
+### 2. Zmiana Statusu
+
+**Ukończone:**
+
+- Kliknij **checkbox** (kwadracik) obok zadania
+- Zadanie zmieni się na zielone z przekreśloną nazwą
+- Ponowne kliknięcie → wraca do statusu "Zaplanowane"
+
+⚠️ **Uwaga:** Z "Ukończone" nie możesz przejść bezpośrednio do "W trakcie"!
+
+**W trakcie:**
+
+- Kliknij **nazwę zadania** (sam tekst)
+- Zadanie zmieni kolor i będzie pisane kursywą (pomarańczowy)
+- Status badge pokaże "W trakcie"
+- Ponowne kliknięcie nazwy → wraca do statusu "Zaplanowane"
+
+### 3. Filtrowanie
+
+- Wpisz nazwę w pole "Nazwa zadania"
+- Wybierz datę
+- Wybierz status (Wszystkie/Zaplanowane/W trakcie/Ukończone)
+
+---
+
+### 4. Usuwanie
+
+1. Kliknij ikonę kosza
+2. Potwierdź w modalu
+3. Zadanie usunięte
+
+---
+
+## 💻 Wymagania
+
+- Node.js 18+
+- npm 10+
+- Angular CLI 19
+
+## 🚀 Komendy
+
+| Komenda    | Opis               |
+| ---------- | ------------------ |
+| `ng serve` | Uruchom dev server |
+| `ng build` | Build projektu     |
+
+---
+
+## 🎨 Technologie
+
+- Angular 19
+- TypeScript 5.6
+- SCSS
+- Bootstrap 5.3
+- Bootstrap Icons
+
+---
