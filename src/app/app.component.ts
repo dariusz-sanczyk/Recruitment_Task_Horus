@@ -20,6 +20,8 @@ export class AppComponent {
     description: '',
     status: 'Planned' as 'Completed' | 'Pending' | 'Planned'
   };
+  public showDeleteModal: boolean = false;
+  public taskToDelete: number = -1;
 
   public tasks: Task[] = [
     {
@@ -76,6 +78,23 @@ export class AppComponent {
       'Planned': 'Zaplanowane'
     };
     return statusTexts[status] || status;
+  };
+
+  deleteTask(index: number): void {
+    this.taskToDelete = index;
+    this.showDeleteModal = true;
+  };
+
+  confirmDelete(): void {
+    if (this.taskToDelete > -1) {
+      this.tasks.splice(this.taskToDelete, 1);
+    };
+    this.cancelDelete();
+  };
+
+  cancelDelete(): void {
+    this.showDeleteModal = false;
+    this.taskToDelete = -1;
   };
 
   openModal(): void {

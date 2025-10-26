@@ -29,6 +29,24 @@ $white: white;
   cursor: pointer;
 }
 
+.delete-btn {
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background-color: #dc3545;
+  color: white;
+
+  &:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 .description-toggle {
   font-size: 0.9rem;
   color: $light-blue;
@@ -92,6 +110,15 @@ h1 {
   animation: slideUp 0.3s ease;
 }
 
+.modal-dialog-sm {
+  max-width: 450px;
+}
+
+.modal-header-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+}
+
 .modal-content {
   background: #fff;
   border-radius: 16px;
@@ -145,6 +172,11 @@ h1 {
 
 .modal-body {
   padding: 2rem;
+
+  .bi-trash.display-1 {
+    font-size: 4rem;
+    opacity: 0.8;
+  }
 
   .form-label {
     font-weight: 600;
