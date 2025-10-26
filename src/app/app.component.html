@@ -93,8 +93,9 @@
                 <span
                   class="badge task-status"
                   [ngClass]="getStatusClass(task.status)"
-                  >{{ getStatusText(task.status) }}</span
                 >
+                  {{ getStatusText(task.status) }}
+                </span>
                 <button
                   class="btn btn-sm btn-danger delete-btn"
                   (click)="deleteTask($index)"
@@ -117,7 +118,8 @@
                 [ngClass]="
                   task.descriptionVisible ? 'bi-chevron-up' : 'bi-chevron-down'
                 "
-              ></i>
+              >
+              </i>
               {{ task.descriptionVisible ? "Ukryj opis" : "Pokaż opis" }}
             </button>
             @if (task.descriptionVisible) {
@@ -137,7 +139,7 @@
     <i class="bi bi-inbox display-1 text-muted"></i>
     <p class="text-muted mt-3">Brak zadań. Dodaj swoje pierwsze zadanie!</p>
   </div>
-  @if (getFilteredTasks().length === 0 && tasks.length > 0) {
+  } @if (getFilteredTasks().length === 0 && tasks.length > 0) {
   <div class="text-center py-5">
     <i class="bi bi-funnel-fill display-1 text-muted"></i>
     <p class="text-muted mt-3 mb-2">
@@ -147,7 +149,7 @@
       <i class="bi bi-x-circle me-1"></i>Wyczyść filtry
     </button>
   </div>
-  } } @if (showModal) {
+  } @if (showModal) {
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-dialog" (click)="$event.stopPropagation()">
       <div class="modal-content">
@@ -208,7 +210,8 @@
                 rows="3"
                 placeholder="Dodaj szczegóły zadania..."
                 maxlength="500"
-              ></textarea>
+              >
+              </textarea>
               <small class="text-muted">
                 {{ newTask.description.length }}/500 znaków
               </small>
@@ -242,20 +245,28 @@
             <i class="bi bi-exclamation-triangle-fill me-2"></i>
             Potwierdzenie usunięcia
           </h5>
-          <button class="btn-close" (click)="cancelDelete()">
+          <button type="button" class="btn-close" (click)="cancelDelete()">
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
         <div class="modal-body text-center">
           <i class="bi bi-trash display-1 text-danger mb-3"></i>
-          <p class="fw-semibold">Czy na pewno chcesz usunąć to zadanie?</p>
-          <p class="text-muted small">Tej operacji nie można cofnąć.</p>
+          <p class="mb-0 fw-semibold">Czy na pewno chcesz usunąć to zadanie?</p>
+          <p class="text-muted small mb-0">Tej operacji nie można cofnąć.</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="cancelDelete()">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cancelDelete()"
+          >
             <i class="bi bi-x-circle me-1"></i>Anuluj
           </button>
-          <button class="btn btn-danger" (click)="confirmDelete()">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="confirmDelete()"
+          >
             <i class="bi bi-trash me-1"></i>Usuń zadanie
           </button>
         </div>

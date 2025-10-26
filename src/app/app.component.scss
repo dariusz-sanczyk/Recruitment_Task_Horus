@@ -1,24 +1,32 @@
-$completed-color: #e8f5e9;
-$completed-border: #4caf50;
-$light-blue: #3498db;
-$pending-color: #fff3e0;
-$pending-border: #ff9800;
-$planned-color: #e3f2fd;
-$planned-border: #2196f3;
-$transition-speed: 0.3s;
-$white: white;
+$primary: #667eea;
+$primary-dark: #764ba2;
+$accent: #3498db;
 
-.btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 1.5rem;
-  transition: all $transition-speed ease;
+$success: #4caf50;
+$warning: #ff9800;
+$info: #2196f3;
+$danger: #dc3545;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-  }
+$white: #ffffff;
+$black: #2c3e50;
+$gray-light: #f8f9fa;
+$gray: #6c757d;
+$gray-border: #e0e0e0;
+
+$overlay: rgba(0, 0, 0, 0.5);
+
+$transition-time: 0.3s;
+$radius: 12px;
+$radius-sm: 8px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+@function lighten-color($color) {
+  @return mix($white, $color, 90%);
+}
+
+@function darken-color($color) {
+  @return mix($black, $color, 15%);
 }
 
 .container {
@@ -29,15 +37,38 @@ $white: white;
   cursor: pointer;
 }
 
-.delete-btn {
-  padding: 0.35rem 0.6rem;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  background-color: #dc3545;
-  color: white;
+h1 {
+  color: $black;
+
+  i {
+    color: $accent;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.5rem;
+  transition: all $transition-time ease;
 
   &:hover {
-    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.delete-btn {
+  padding: 0.35rem 0.6rem;
+  border-radius: $radius-sm;
+  transition: all $transition-time ease;
+  background-color: $danger;
+  color: $white;
+  border: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: darken-color($danger);
     transform: scale(1.1);
     box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
   }
@@ -45,73 +76,78 @@ $white: white;
   &:active {
     transform: scale(0.95);
   }
+
+  i {
+    font-size: 0.9rem;
+  }
 }
 
 .description-toggle {
   font-size: 0.9rem;
-  color: $light-blue;
+  color: $accent;
   font-weight: 500;
-  transition: all $transition-speed ease;
+  transition: all $transition-time ease;
 
   &:hover {
-    color: #2980b9;
+    color: darken-color($accent);
     text-decoration: underline !important;
   }
 
   i {
     font-size: 0.8rem;
-    transition: transform $transition-speed ease;
+    transition: transform $transition-time ease;
   }
 }
 
 .filters-card {
-  border-radius: 12px;
-  border: 2px solid #e3f2fd;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  transition: all $transition-speed ease;
+  border-radius: $radius;
+  border: 2px solid lighten-color($info);
+  background: linear-gradient(135deg, $gray-light 0%, $white 100%);
+  transition: all $transition-time ease;
 
   &:hover {
-    border-color: #90caf9;
+    border-color: $info;
   }
 
   h5 {
-    color: #2c3e50;
+    color: $black;
 
     i {
-      color: #3498db;
+      color: $accent;
     }
   }
 
   .form-label {
     font-weight: 500;
-    color: #495057;
+    color: $black;
     font-size: 0.9rem;
 
     i {
-      color: #3498db;
+      color: $accent;
     }
   }
 
   .form-control,
   .form-select {
-    border-radius: 8px;
-    border: 2px solid #e0e0e0;
-    transition: all $transition-speed ease;
+    border-radius: $radius-sm;
+    border: 2px solid $gray-border;
+    transition: all $transition-time ease;
     font-size: 0.95rem;
 
     &:focus {
-      border-color: #3498db;
+      border-color: $accent;
       box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
     }
 
     &::placeholder {
-      color: #adb5bd;
+      color: $gray;
+      opacity: 0.6;
     }
   }
 
   .btn-outline-secondary {
-    border-radius: 8px;
-    transition: all $transition-speed ease;
+    border-radius: $radius-sm;
+    transition: all $transition-time ease;
 
     &:hover {
       transform: translateY(-1px);
@@ -123,97 +159,128 @@ $white: white;
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
-  border: 2px solid #ced4da;
-  transition: all $transition-speed ease;
+  border: 2px solid $gray;
+  transition: all $transition-time ease;
 
   &:checked {
-    background-color: $completed-border;
-    border-color: $completed-border;
+    background-color: $success;
+    border-color: $success;
   }
 
   &:hover {
-    border-color: $light-blue;
+    border-color: $accent;
   }
 }
 
-h1 {
-  color: #2c3e50;
+.task-card {
+  border-radius: $radius;
+  border: 2px solid $gray-border;
+  transition: all $transition-time ease;
+  background: $white;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow !important;
+  }
+
+  &.task-completed {
+    background-color: lighten-color($success);
+    border-color: $success;
+
+    .task-name {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+  }
+}
+
+.task-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $black;
+  cursor: pointer;
+  transition: color $transition-time ease;
+  user-select: none;
+
+  &:hover {
+    color: $accent;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.task-card:has(.task-status.status-pending) {
+  .task-name {
+    color: darken-color($warning);
+    font-style: italic;
+  }
+}
+
+.task-date {
+  color: $gray;
+  font-size: 0.9rem;
 
   i {
-    color: $light-blue;
+    color: $gray;
+    opacity: 0.7;
   }
 }
 
-.modal-body {
-  padding: 2rem;
+.task-description {
+  background-color: $gray-light;
+  border-left: 4px solid $accent;
+  border-radius: $radius-sm;
+  color: $black;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  animation: slideDown $transition-time ease;
 
-  .bi-trash.display-1 {
-    font-size: 4rem;
-    opacity: 0.8;
+  i {
+    color: $accent;
+  }
+}
+
+.task-status {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 500;
+  border-radius: 20px;
+  color: $white;
+
+  &.status-completed {
+    background-color: $success;
   }
 
-  .form-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-
-    .text-danger {
-      font-weight: bold;
-    }
+  &.status-pending {
+    background-color: $warning;
   }
 
-  .form-control,
-  .form-select {
-    border-radius: 8px;
-    border: 2px solid #e0e0e0;
-    padding: 0.75rem;
-    font-size: 0.95rem;
-    transition: all $transition-speed ease;
-
-    &:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
-      outline: none;
-    }
-
-    &.is-invalid {
-      border-color: #dc3545;
-
-      &:focus {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
-      }
-    }
-
-    &::placeholder {
-      color: #adb5bd;
-    }
+  &.status-planned {
+    background-color: $info;
   }
+}
 
-  textarea.form-control {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .invalid-feedback {
-    display: block;
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
-  }
-
-  .text-muted {
-    font-size: 0.85rem;
-    color: #6c757d;
-  }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $overlay;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  animation: fadeIn $transition-time ease;
 }
 
 .modal-dialog {
   width: 90%;
   max-width: 550px;
-  animation: slideUp 0.3s ease;
+  animation: slideUp $transition-time ease;
 }
 
 .modal-dialog-sm {
@@ -221,57 +288,15 @@ h1 {
 }
 
 .modal-content {
-  background: #fff;
+  background: $white;
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-lg;
   overflow: hidden;
 }
 
-.modal-footer {
-  padding: 1.25rem 2rem;
-  background-color: #f8f9fa;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  border-top: 1px solid #e9ecef;
-
-  .btn {
-    padding: 0.6rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all $transition-speed ease;
-    border: none;
-
-    i {
-      font-size: 0.9rem;
-    }
-
-    &.btn-secondary {
-      background-color: #6c757d;
-      color: white;
-
-      &:hover {
-        background-color: #5a6268;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-      }
-    }
-
-    &.btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-      }
-    }
-  }
-}
-
 .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  color: $white;
   padding: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -290,7 +315,7 @@ h1 {
   .btn-close {
     background: transparent;
     border: none;
-    color: white;
+    color: $white;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0;
@@ -300,7 +325,7 @@ h1 {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all $transition-speed ease;
+    transition: all $transition-time ease;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
@@ -314,113 +339,127 @@ h1 {
 }
 
 .modal-header-danger {
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-  color: white;
+  background: linear-gradient(135deg, $danger 0%, darken-color($danger) 100%);
+  color: $white;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1050;
-  animation: fadeIn 0.3s ease;
-}
+.modal-body {
+  padding: 2rem;
 
-.task-card {
-  border-radius: 12px;
-  border: 2px solid #e0e0e0;
-  transition: all $transition-speed ease;
-  background: $white;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  .bi-trash.display-1 {
+    font-size: 4rem;
+    opacity: 0.8;
   }
 
-  &.task-completed {
-    background-color: $completed-color;
-    border-color: $completed-border;
+  .form-label {
+    font-weight: 600;
+    color: $black;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 
-    .task-name {
-      text-decoration: line-through;
-      opacity: 0.7;
+    .text-danger {
+      font-weight: bold;
     }
   }
-}
 
-.task-date {
-  color: #6c757d;
-  font-size: 0.9rem;
+  .form-control,
+  .form-select {
+    border-radius: $radius-sm;
+    border: 2px solid $gray-border;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    transition: all $transition-time ease;
 
-  i {
-    color: #95a5a6;
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+      outline: none;
+    }
+
+    &.is-invalid {
+      border-color: $danger;
+
+      &:focus {
+        border-color: $danger;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+      }
+    }
+
+    &::placeholder {
+      color: $gray;
+      opacity: 0.6;
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .invalid-feedback {
+    display: block;
+    color: $danger;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .text-muted {
+    font-size: 0.85rem;
+    color: $gray;
   }
 }
 
-.task-description {
-  background-color: #f8f9fa;
-  border-left: 4px solid $light-blue;
-  border-radius: 8px;
-  color: #495057;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  animation: slideDown $transition-speed ease;
+.modal-footer {
+  padding: 1.25rem 2rem;
+  background-color: $gray-light;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid $gray-border;
 
-  i {
-    color: $light-blue;
-  }
-}
+  .btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    transition: all $transition-time ease;
+    border: none;
 
-.task-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: color $transition-speed ease;
-  user-select: none;
+    i {
+      font-size: 0.9rem;
+    }
 
-  &:hover {
-    color: #3498db;
-  }
+    &.btn-secondary {
+      background-color: $gray;
+      color: $white;
 
-  &:active {
-    transform: scale(0.98);
-  }
-}
+      &:hover {
+        background-color: darken-color($gray);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+      }
+    }
 
-.task-card:has(.task-status.status-pending) {
-  .task-name {
-    color: #e67e22;
-    font-style: italic;
-  }
-}
+    &.btn-primary {
+      background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+      color: $white;
 
-.task-status {
-  font-size: 0.85rem;
-  padding: 0.4rem 0.8rem;
-  font-weight: 500;
-  border-radius: 20px;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+    }
 
-  &.status-completed {
-    background-color: $completed-border;
-    color: $white;
-  }
+    &.btn-danger {
+      background-color: $danger;
+      color: $white;
 
-  &.status-pending {
-    background-color: $pending-border;
-    color: $white;
-  }
-
-  &.status-planned {
-    background-color: $planned-border;
-    color: $white;
+      &:hover {
+        background-color: darken-color($danger);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+      }
+    }
   }
 }
 
