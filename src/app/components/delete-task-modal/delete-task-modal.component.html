@@ -1,44 +1,29 @@
 @if (show) {
-  <div class="modal-overlay" (click)="onCancel()">
-    <div
-      class="modal-dialog modal-dialog-sm"
-      (click)="$event.stopPropagation()">
-      <div class="modal-content">
-        <div class="modal-header modal-header-danger">
-          <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-            Potwierdzenie usunięcia
-          </h5>
-          <button type="button" class="btn-close" (click)="onCancel()">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="modal-dialog modal-dialog-sm" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header modal-header-danger">
+        <h5 class="modal-title">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          Potwierdzenie usunięcia
+        </h5>
+      </div>
 
-        <div class="modal-body text-center">
-          <i class="bi bi-trash display-1 text-danger mb-3"></i>
-          <p class="mb-0 fw-semibold">
-            Czy na pewno chcesz usunąć to zadanie?
-          </p>
-          <p class="text-muted small mb-0">
-            Tej operacji nie można cofnąć.
-          </p>
-        </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-trash display-1 text-danger mb-3"></i>
+        <p class="mb-0 fw-semibold">Czy na pewno chcesz usunąć to zadanie?</p>
+        <p class="text-muted small mb-0">Tej operacji nie można cofnąć.</p>
+      </div>
 
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            (click)="onCancel()">
-            <i class="bi bi-x-circle me-1"></i>Anuluj
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger"
-            (click)="onConfirm()">
-            <i class="bi bi-trash me-1"></i>Usuń zadanie
-          </button>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          <i class="bi bi-x-circle me-1"></i>Anuluj
+        </button>
+        <button type="button" class="btn btn-danger" (click)="onConfirm()">
+          <i class="bi bi-trash me-1"></i>Usuń zadanie
+        </button>
       </div>
     </div>
   </div>
+</div>
 }
