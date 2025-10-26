@@ -77,7 +77,12 @@
     </div>
     }
   </div>
-  @if (showModal) {
+  @if (tasks.length === 0) {
+  <div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <p class="text-muted mt-3">Brak zadań. Dodaj swoje pierwsze zadanie!</p>
+  </div>
+  } @if (showModal) {
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-dialog" (click)="$event.stopPropagation()">
       <div class="modal-content">
