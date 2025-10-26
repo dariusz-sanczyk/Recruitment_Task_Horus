@@ -26,12 +26,12 @@
             <div
               class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2"
             >
-              <label
-                [for]="'task-' + $index"
+              <span
                 class="task-name mb-0 cursor-pointer"
+                (click)="togglePending(task)"
               >
                 {{ task.name }}
-              </label>
+              </span>
               <span
                 class="badge task-status"
                 [ngClass]="getStatusClass(task.status)"

@@ -40,6 +40,13 @@ export class AppComponent {
     task.status = task.status === 'Completed' ? 'Planned' : 'Completed';
   };
 
+  togglePending(task: Task): void {
+    if (task.status === 'Completed') {
+      return;
+    }
+    task.status = task.status === 'Pending' ? 'Planned' : 'Pending';
+  };
+
   toggleDescription(task: Task): void {
     task.descriptionVisible = !task.descriptionVisible;
   };
